@@ -1,0 +1,32 @@
+
+ssh -i "key" ubuntu@ec2-54-152-21-119.compute-1.amazonaws.com "<command>"
+
+[Nodo master - 18.04 Ubuntu]
+git clone https://github.com/c0decracker/video-splitter.git
+
+sudo apt install python -y
+
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install python-pip -y
+
+pip install --upgrade setuptools
+
+python -m pip install --upgrade pip
+
+pip install --upgrade pipenv
+
+sudo apt install ffmpeg -y
+
+chmod 755 ffmpeg-split.py
+
+./ffmpeg-split.py -f <nvideo> -s <sec-chunks>
+
+sudo snap install blender --classic
+
+ffmpeg -ss 05:00 -i <video> -t 00:05 Test%03d.png
+
+export LC_ALL="en_US.UTF-8"
+export LC_CTYPE="en_US.UTF-8"
+sudo dpkg-reconfigure locales
