@@ -30,3 +30,6 @@ ffmpeg -ss 05:00 -i <video> -t 00:05 Test%03d.png
 export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 sudo dpkg-reconfigure locales
+
+#refs - blender
+https://free3d.com/3d-model/world-16887.html
