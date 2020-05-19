@@ -1,0 +1,79 @@
+#!/bin/bash
+
+animation=false
+nodes=1
+
+
+function split {
+    total="$(($end_frame - $start_frame))"
+    fragment="$(($total / $nodes))"
+    mod="$(($total % $nodes))"
+    init=$start_frame
+    end=0
+    for (( i=1; i<=$nodes; i++ ))
+    do
+        # init ok
+        if (($i == $nodes))
+        then
+            end="$(($fragment * $i + $mod))"
+        else
+            end="$(($fragment * $i))"
+        fi
+        end="$(($end + $start_frame))"
+        # end ok
+        # send run
+        init="$(($end+1))"
+    done
+
+} 
+
+
+
+while getopts :as:e:f: options; do
+    case $options in
+        a)
+            animation=true;;
+        s)
+            start_frame=$OPTARG;;
+        e)
+            end_frame=$OPTARG;;
+        f)
+            file_path=$OPTARG;;
+    esac
+done
+
+if [ -z "${file_path+x}" ]
+then
+    echo "Not file"
+else
+if $animation
+then
+    # existe start frame y no existe end frame
+    if [ ! -z "${start_frame+x}" ] && [ -z "${end_frame+x}" ]
+    then
+        echo "End frame is unset"
+    else
+    # existe end frame y no existe start frame
+    if [ -z "${start_frame+x}" ] && [ ! -z "${end_frame+x}" ]
+    then
+        echo "Start frame is unset"
+    else
+    # no hay (auto)
+    if [ -z "${start_frame+x}" ] && [ -z "${end_frame+x}" ]
+    then
+        frames=$(blender -b $file_path -P get_frames.py -noaudio | grep "^[0-9]* [0-9]*$")
+        start_frame=$(echo $frames | cut -d' ' -f1)
+        end_frame=$(echo $frames | cut -d' ' -f2)
+        split
+    else
+    # usa ambos
+    if [ ! -z "${start_frame+x}" ] && [ ! -z "${end_frame+x}" ]
+    then
+        echo "Using $start_frame and $end_frame"
+        split
+    fi
+    fi
+    fi
+    fi
+fi
+fi
