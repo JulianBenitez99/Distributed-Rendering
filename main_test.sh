@@ -24,7 +24,7 @@ function process_image {
 }
 
 function split {
-    total="$(($end_frame - $start_frame))"
+    total="$(($end_frame - $start_frame + 1))"
     fragment="$(($total / $nodes))"
     mod="$(($total % $nodes))"
     init=$start_frame
@@ -38,7 +38,7 @@ function split {
         else
             end="$(($fragment * $i))"
         fi
-        end="$(($end + $start_frame))"
+        end="$(($end + $start_frame - 1))"
         # end ok
         
         send_file
