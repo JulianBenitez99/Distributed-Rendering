@@ -14,8 +14,8 @@ echo "File sent to node$i"
 }
 
 function process_animation {
-    ssh "node$i" -f "source /etc/profile; AREP-PROJECT/run-animation.sh -s $start_frame -e $end_frame -f $file_path -fr 20 -n part$i" > /dev/null 2>&1 &
-    echo "node$i is animating"
+    ssh "node$i" -f "source /etc/profile; AREP-PROJECT/run-animation.sh -s $start_frame -e $end_frame -f $file_path -x 3 -n part$i" > /dev/null 2>&1 &
+    echo "node$i is rendering animation"
 }
 
 function process_image {

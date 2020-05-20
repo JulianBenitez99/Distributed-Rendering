@@ -1,3 +1,5 @@
+#!/bin/bash
+
 while getopts :f:x: options; do
     case $options in
         f)

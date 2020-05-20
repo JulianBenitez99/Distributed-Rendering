@@ -1,4 +1,6 @@
-while getopts :s:e:f:n:fr: options; do
+#!/bin/bash
+
+while getopts :s:e:f:n:x: options; do
     case $options in
         s)
             start_frame=$OPTARG;;
@@ -8,12 +10,25 @@ while getopts :s:e:f:n:fr: options; do
             file_path=$OPTARG;;
         n)
             video_name=$OPTARG;;
-        fr)
+        x)
             frame_rate=$OPTARG;;
     esac
 done
 
-blender -b $file_path -E CYCLES -s $start_frame -e $end_frame -t 1 -a
+blender -b $file_path  -o /home/ubuntu/frames/ -E CYCLES -s $start_frame -e $end_frame -t 2 -a
 
-ffmpeg -framerate $frame_rate -pattern_type glob -i '*.jpg' "videos/$video_name"
+ffmpeg -framerate $frame_rate -pattern_type glob -i '/home/ubuntu/frames/*.png' "/home/ubuntu/videos/$video_name.mp4"
 
+sftp master << EOF
+    cd /home/ubuntu/videos
+    put /home/ubuntu/videos/$video_name.mp4
+    quit
+EOF
+
+# Example
+# ./run-animation.sh -s 23 -e 270 -f /home/ubuntu/prueba.blend -n part1 -x 20
+# s - Start frame
+# e - End frame
+# f - File path
+# n - Video name
+# x - Video frame rate
