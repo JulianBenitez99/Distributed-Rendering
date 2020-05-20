@@ -1,8 +1,27 @@
 #!/bin/bash
 
 animation=false
-nodes=1
+nodes=4
 
+function send_file {
+
+sftp "node$i" << EOF
+    put $file_path
+    quit
+EOF
+
+echo "File sent to node$i"
+}
+
+function process_animation {
+    ssh "node$i" -f "source /etc/profile; ./run-animation.sh -s $start_frame -e $end_frame -f $file_path -fr 20 -n part$i" > /dev/null 2>&1 &
+    echo "node$i is animating"
+}
+
+function process_image {
+    ssh "node$i" -f "source /etc/profile; ./run-image.sh -f $file_path -fr 10 -n image$i" > /dev/null 2>&1 &
+    echo "node$i processing image"
+}
 
 function split {
     total="$(($end_frame - $start_frame))"
@@ -21,6 +40,10 @@ function split {
         fi
         end="$(($end + $start_frame))"
         # end ok
+        
+        send_file
+        process_animation
+
         # send run
         init="$(($end+1))"
     done
@@ -75,5 +98,9 @@ then
     fi
     fi
     fi
+else
+    i=1
+    send_file
+    process_image
 fi
 fi
