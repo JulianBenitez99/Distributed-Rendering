@@ -1,18 +1,18 @@
-while getopts :f:fr:n: options; do
+while getopts :f:x: options; do
     case $options in
-        fr)
-            frame=$OPTARG;;
         f)
             file_path=$OPTARG;;
-        n)
-            name=$OPTARG;;
+        x)
+            frame=$OPTARG;;
     esac
 done
 
-
-blender -b $file_path -E CYCLES -f $frame -o "img/$name"
+blender -b "$file_path" -o "/home/ubuntu/img/render_" -E CYCLES -f $frame
 
 sftp master << EOF
-    put img/$name
+    put /home/ubuntu/img/*$frame.png
     quit
 EOF
+
+# Example
+# ./run-image.sh -f /home/ubuntu/test.blend -x 10
