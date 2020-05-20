@@ -9,5 +9,8 @@ sudo apt install libxxf86vm1 -y
 sudo apt-get install libglu1 -y
 sudo apt install libfontconfig1 libxrender1 -y
 
+# ffmpeg
+sudo apt install ffmpeg -y
+
 #blender
 sudo snap install blender --classic
