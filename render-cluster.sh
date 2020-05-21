@@ -19,7 +19,7 @@ function process_animation {
 }
 
 function process_image {
-    ssh "node$i" -f "source /etc/profile; AREP-PROJECT/run-image.sh -f $file_path -x 10" > /dev/null 2>&1 &
+    ssh "node$i" -f "source /etc/profile; AREP-PROJECT/run-image.sh -f $file_path -x $frame" > /dev/null 2>&1 &
     echo "node$i rendering image"
 }
 
@@ -52,7 +52,7 @@ function split {
 
 
 
-while getopts :as:e:f: options; do
+while getopts :as:e:f:x: options; do
     case $options in
         a)
             animation=true;;
@@ -62,6 +62,8 @@ while getopts :as:e:f: options; do
             end_frame=$OPTARG;;
         f)
             file_path=$OPTARG;;
+        x)
+        |   frame=$OPTARG;;
     esac
 done
 
@@ -92,7 +94,7 @@ then
     # usa ambos
     if [ ! -z "${start_frame+x}" ] && [ ! -z "${end_frame+x}" ]
     then
-        echo "Using $start_frame and $end_frame"
+        echo "Using start frame: $start_frame, end frame: $end_frame"
         split
     fi
     fi
@@ -104,3 +106,15 @@ else
     process_image
 fi
 fi
+
+# Example
+# animation mode
+#   ./render-cluster -a -s 1 -e 10 -f /home/ubuntu/blend_file.blend
+# image mode
+#   ./render-cluster -f /home/ubuntu/blend_file.blend -x 10
+# Params
+# a - Animation mode
+# s - Start frame (for animation)
+# e - End frame (for animation)
+# f - Blender file path (required)
+# x - Frame (for image)
