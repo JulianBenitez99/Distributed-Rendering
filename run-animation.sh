@@ -27,6 +27,7 @@ EOF
 
 rm -f /home/ubuntu/frames/*.png
 rm -f /home/ubuntu/videos/*.mp4
+rm -f /home/ubuntu/*.blend
 
 # Example
 # ./run-animation.sh -s 23 -e 270 -f /home/ubuntu/prueba.blend -n part1 -x 20

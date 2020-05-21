@@ -18,6 +18,7 @@ sftp master << EOF
 EOF
 
 rm -f /home/ubuntu/img/*.png
+rm -f /home/ubuntu/*.blend
 
 # Example
 # ./run-image.sh -f /home/ubuntu/test.blend -x 10
