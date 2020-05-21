@@ -63,7 +63,7 @@ while getopts :as:e:f:x: options; do
         f)
             file_path=$OPTARG;;
         x)
-        |   frame=$OPTARG;;
+            frame=$OPTARG;;
     esac
 done
 
