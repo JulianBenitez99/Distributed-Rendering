@@ -1,4 +1,4 @@
-# AREP - Renderizado Distribuido en al Nube
+# Renderizado Distribuido en la Nube
 Prototipo de un clúster compuesto por un nodo Máster y nodos hijos para el proceso de renderización de animaciones e imágenes mediante el software Blender.
 
 ## Video de Renderizado
@@ -17,9 +17,9 @@ El máster debe estar autorizado para conectarse a las instancias y viceversa. N
 
 ### Instalación
 
-Clonar el repositorio y dirigirse a la carpeta de `AREP-PROJECT`.
+Clonar el repositorio y dirigirse a la carpeta de `Distributed-Rendering`.
 
-`git clone https://github.com/JulianBenitez99/AREP-PROJECT.git`
+`git clone https://github.com/JulianBenitez99/Distributed-Rendering.git`
 
 En cada una de las máquinas, realizar la instalación de las dependencias corriendo el script de `install_blender.sh`.
 
@@ -39,7 +39,7 @@ Exiten dos modos:
 
 En este modo los frames del proyecto blender se paralelizan equitativamente entre los nodos. Los parámetros son los siguientes:
 
- a - Activar modo animacións\
+ a - Activar modo animación\
  s - Frame de inicio\
  e - Frame final\
  f - Archivo\
